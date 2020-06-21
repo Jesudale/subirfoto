@@ -1,14 +1,119 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+<ion-header >
+  <ion-navbar color="primary" style="padding: 0px;" > 
+    
+      <ion-list style="padding: 0px;" >
+         <ion-item color="primary" style="padding: 0px;">
+              Subir Archivo a Laravel
+         </ion-item>
+      </ion-list>
+      
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+
+
+  <form [formGroup]="myForm">
+    <ion-list>
+          <ion-item  >
+            <ion-icon name="pricetags" item-start></ion-icon>              
+            <ion-label stacked>Producto</ion-label>
+                <ion-input  formControlName="producto" type="text" placeholder="Nombre del producto"  [(ngModel)]="vproducto" [class.invalid]="!myForm.controls.producto.valid  && (myForm.controls.producto.dirty || submitAttempt) "></ion-input>   
+          </ion-item>              
+          <ion-item *ngIf="!myForm.controls.producto.valid  && (myForm.controls.producto.dirty || submitAttempt)">
+            <p>Por favor un nombre para la foto.</p>
+        </ion-item>
+
+        <ion-item  >
+          <ion-icon name="logo-usd" item-start></ion-icon>              
+          <ion-label stacked>Precio</ion-label>
+              <ion-input  formControlName="precio" type="text" placeholder="Precio"  [(ngModel)]="vprecio" [class.invalid]="!myForm.controls.precio.valid  && (myForm.controls.precio.dirty || submitAttempt) "></ion-input>   
+        </ion-item>              
+        <ion-item *ngIf="!myForm.controls.precio.valid  && (myForm.controls.precio.dirty || submitAttempt)">
+          <p>En este campo solo se aceptan números</p>
+       </ion-item>
+
+       <br>
+
+       <div text-center *ngIf="!img1">
+        <h2 >No hay Imagen, seleccione una de la galería con el siguiente botón </h2>
+       </div>
+
+       <div text-center *ngIf="img1">
+        <h2 >Previsualizacion de la Imagen</h2>    
+        <img *ngIf="img1" [src]="img1" style="padding: 0px;" class="imgRedonda2"/>      
+      </div>
+    
+<!-- variante ion-input -->
+        <ion-item text-center>
+          <!-- <ion-label id="profile_image" color="primary" stacked>Ion-input</ion-label> -->
+          <ion-input accept="image/png, image/jpeg" text-center type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+        </ion-item>  
+
+<!--  variante File transfer plugin -->
+       <ion-item text-center>
+        <button ion-button icon-left (click)="upload()" >
+          <ion-icon name="images"></ion-icon>
+          Enviar con File Transfer Plugin
+        </button> 
+      </ion-item>
+
+     </ion-list>  
+ </form> 
+  <br>
+  <button  [style.display]="visible" ion-button block (click)="save()">Enviar con API</button>
+
+ <!-- variante image picker plugin 
+        <ion-item text-center>
+          <button (click)="abrirGaleria()" ion-button icon-left >
+            <ion-icon name="images"></ion-icon>
+            Image Picker Plugin
+          </button> 
+        </ion-item>
+-->
+  <!-- 
+<p>Imagen tomada de internet</p>
+  <div>
+    <ion-item> 
+        <img src="http://lorempixel.com/400/200" style="padding: 0px;" class="imgRedonda"> 
+    
+        <button  ion-button small outline  icon-only  round (click)= "quitarFoto()" >
+          <ion-icon name="close-circle"></ion-icon>        
+        </button> 
+
+    </ion-item>
+  </div> -->
+
+<!-- slider superior -->
+<br>
+<ion-slides #slides zoom style="height: 30%" does-continue="true" show-pager="true"  autoplay="3000" ngif="promoImagesLoaded" slidesperview="1">
+  <!-- <img alt="" src="{{promo.name}}"> -->
+      <ion-slide *ngFor="let carro of products2"   style="width: 100%">                         
+          <img src="{{carro.img}}" style="padding: 0px;" class="imgRedonda2">
+          <div style="position: absolute;top: 50%;right: 1px;font-size: 25px;z-index: 2;" (click)="next()">
+            <ion-icon name="arrow-forward" color="primary"></ion-icon>
+          </div>    
+      </ion-slide>
+   
+</ion-slides> 
+<br>
+
+<!-- imagenes del menu -->
+<ion-list>
+<div *ngFor="let product of products" >    
+ <ion-card>         
+    <img src="{{product.url}}" style="padding: 0px;" class="imgRedonda">       
+    <ion-card-content> 
+    <h1> {{product.nam}} </h1>  
+    <h2> <b>$</b>{{product.pre }}  </h2> 
+    
+    <button ion-button color="green" (click)="abrirDetallesGasolinera(product)">Modificar</button>
+    <button ion-button color="danger" (click)="deleteItem(product)">Borrar</button>     
+    </ion-card-content>
+
+  </ion-card>        
+</div>   
+</ion-list>
+
 </ion-content>

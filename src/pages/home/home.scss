@@ -1,3 +1,41 @@
 page-home {
-
+ 
+    h1{   
+        padding: 0px;
+        font-size:30px;
+        text-align:center;
+        color: #677077;
+    }
+    h2{   
+        text-align:center;   
+        padding: 0px;
+        font-size:20px;
+        color: #677077;
+        
+    }
+    h3{   
+        text-align:center;   
+        padding: 0px;
+        font-size:17px;
+        color: #677077;
+        
+    }
+    .logo{
+        display:block;
+        margin:auto;  
+        height: 200px;
+           
+    }
+    .imgRedonda {
+        width:100%;
+        height:100%;
+        border-radius:2px;
+    }
+    
+    .imgRedonda2 {
+        width:250px;
+        height:200px;
+        border-radius:20px;
+        background-size: 50% 50%;
+    }   
 }
